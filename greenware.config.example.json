@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "enrichment": {
+    "timeout_ms": 10000
+  },
+  "security": {
+    "allowed_origins": [
+      "http://localhost:8787",
+      "http://127.0.0.1:8787"
+    ],
+    "session_ttl_seconds": 600,
+    "rate_limit_per_ip_per_minute": 10,
+    "iframe_allowlist": ["cal.com", "calendly.com"]
+  }
+}

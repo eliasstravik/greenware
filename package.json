@@ -1,0 +1,22 @@
+{
+  "name": "greenware",
+  "version": "0.1.0",
+  "description": "Website form lead routing for Clay-powered backend",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter '@greenware/server' dev",
+    "start": "bun --filter '@greenware/server' start",
+    "test": "bun --filter '@greenware/server' test",
+    "typecheck": "bun --filter '@greenware/server' typecheck",
+    "build": "bun --filter '@greenware/server' build",
+    "deploy": "railway up"
+  },
+  "engines": {
+    "bun": ">=1.0.0",
+    "node": ">=20.0.0"
+  }
+}

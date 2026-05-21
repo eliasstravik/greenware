@@ -1,0 +1,24 @@
+{
+  "name": "@greenware/server",
+  "version": "0.1.0",
+  "description": "Website form lead routing for Clay-powered backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "GREENWARE_ENV=development bun --watch src/server.ts",
+    "start": "bun run src/server.ts",
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.12.21",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
+  }
+}
