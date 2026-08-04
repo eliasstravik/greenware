@@ -1,499 +1,116 @@
-<p align="center">
-  <img src="assets/greenware-logo.png" width="90" alt="Greenware logo" />
-</p>
+<p align="center"><img src="https://img.shields.io/badge/Greenware-Website%20form%20routing%20for%20Clay-2ea44f?style=flat-square&labelColor=24292f" alt="Greenware — Website form routing for Clay" /></p>
 
-<h1 align="center">Greenware</h1>
+<h3 align="center">Route form leads through Clay without replacing your form or showing every visitor the same next step</h3>
 
-<p align="center">
-  Website form lead routing for Clay-powered backend
-</p>
+<p align="center">Greenware lets you route each form submission through Clay while the visitor is still on your site when one static thank-you page cannot handle every lead, by attaching to the form you already use and rendering Clay's returned booking embed, redirect, message, or rejection in the browser.</p>
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
-</p>
+<p align="center"><img src="assets/greenware-form-routing.svg?v=1" width="88%" alt="A website form submits through Greenware to Clay and receives the next action Clay selected" /></p>
 
----
+<p align="center"><a href="https://github.com/eliasstravik/greenware/blob/main/docs/getting-started.md"><img src="assets/buttons/deploy-greenware.svg" alt="Deploy Greenware" /></a>&nbsp;&nbsp;<a href="https://cal.com/stravik/demo?projects=Greenware" target="_blank" rel="noopener noreferrer"><img src="assets/buttons/book-a-demo.svg" alt="Book a demo" /></a></p>
 
-## What it does
+<p align="center"><sub>✓&nbsp;100%&nbsp;free&nbsp;and&nbsp;open&nbsp;source &nbsp; ✓&nbsp;One&#8209;click&nbsp;Railway&nbsp;deploy &nbsp; ✓&nbsp;Keep&nbsp;your&nbsp;existing&nbsp;form</sub></p>
 
-Greenware lets companies keep their existing forms while routing each submission through Clay before deciding what the visitor sees next.
+<p align="center"><small>⭐ Used by top GTM Engineers</small></p>
 
-```
-Website form / Tally / Typeform
-  -> Greenware backend on Railway
-    -> Clay webhook
-      -> Clay runs enrichment and routing logic
-        -> Clay POSTs a signed callback back to Greenware
-          -> Browser receives an embed, redirect, message, or rejection
-```
+<br />
 
-Greenware is not a form builder and does not ship a hosted marketing site. It is a backend service plus two optional JavaScript embed files:
+## Give every inbound lead the right next step while they are still on your site
 
-- `/api/*` routes for submission, provider ingest, session polling, and signed callbacks
-- `/embed/v1.js` for browser/session orchestration
-- `/embed/v1-default-ui.js` for the default spinner and action renderer
+Qualified buyers see a calendar where the form was. Other visitors receive the message, destination, or off-ramp meant for them before the context of the submission is lost.
 
-The deployable backend intentionally includes no HTML preview pages, demo pages, or hosted example website.
+## Choose between static thank-you pages, form-builder rules, custom backends — or the form you already have connected to Clay
 
-## Getting started
+| | **Greenware** | Static thank-you | Form-builder rules | Custom backend |
+|---|:---:|:---:|:---:|:---:|
+| **Free software** | ✅ | ✅ | ❌ | ✅ |
+| **No backend code** | ✅ | ✅ | ✅ | ❌ |
+| **Keeps the existing form** | ✅ | ✅ | ❌ | ✅ |
+| **Routes with Clay enrichment** | ✅ | ❌ | ❌ | ✅ |
+| **Different action per lead** | ✅ | ❌ | ✅ | ✅ |
+| **Booking embed in the same form** | ✅ | ❌ | ✅ | ✅ |
+| **Signed single-use callbacks** | ✅ | ❌ | ❌ | ✅ |
+| **Tally and Typeform sessions** | ✅ | ❌ | ❌ | ✅ |
+| **One-click Railway deployment** | ✅ | ❌ | ❌ | ❌ |
 
-### Step 1: Deploy Greenware
+Keep the form your site already uses. Greenware manages the browser session, Clay makes the routing decision, and the visitor sees that action in place.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/PqFdW4?utm_medium=integration&utm_source=button&utm_campaign=greenware)
+## Submit the form. Let Clay decide what the visitor sees next.
 
-<details>
-<summary><b>Railway step-by-step</b></summary>
+### 📈 Move qualified buyers straight to the calendar
 
-1. Click the **Deploy on Railway** button above
-2. Sign in to Railway or create an account
-3. If asked to name the project, pick anything you like, such as `greenware`
-4. Leave the variables as-is. Greenware can boot without any required deploy-time secrets
-5. Deploy the template
-6. Wait for the build to finish
-7. Open the `greenware` service. If it is unexposed, go to Settings -> Networking -> Public Networking and click **Generate Domain**. Copy the public Railway URL, such as:
+Return an embed or redirect action from Clay and let the visitor book while the reason they submitted is still fresh.
 
-   ```text
-   https://greenware-production-xxxx.up.railway.app
-   ```
+### ⚡ Let Greenware manage the wait
 
-8. Open `/health` on the public URL. It should return `{"status":"ok"}`
-9. If the Variables tab says **No Environment Variables**, that is expected. Greenware is online, but not ready to route leads yet.
-10. Continue to Step 2 and add the production variables for Clay and your website origins.
+Greenware creates the session, sends the lead to Clay, accepts the signed callback, and returns the selected action to the same browser.
 
-The Railway template creates one Greenware backend service. It intentionally does not create a database. See [docs/railway-template.md](docs/railway-template.md) for the exact template settings.
+### 💬 Show the next step inside the form
 
-</details>
+Replace the submitted form with a calendar, redirect, message, or polite rejection as soon as Clay's callback arrives.
 
-<details>
-<summary><b>Local / VPS / other</b></summary>
+## Route your first form through Clay in twenty minutes
 
-```bash
-git clone https://github.com/eliasstravik/greenware.git
-cd greenware
-bun install
-cp apps/server/.env.example apps/server/.env
-bun run build
-bun run start
-```
+<table>
+<tr>
+<td align="center" valign="top" width="33%"><h3>1️⃣</h3><b>Deploy Greenware</b><br /><sub>Use the Railway template, then add your Clay destination and allowed website origins.</sub></td>
+<td align="center" valign="top" width="33%"><h3>2️⃣</h3><b>Return an action from Clay</b><br /><sub>Add a final HTTP API column that posts the selected action to Greenware's callback URL.</sub></td>
+<td align="center" valign="top" width="33%"><h3>3️⃣</h3><b>Attach the form</b><br /><sub>Add the Greenware attributes and scripts, submit a lead, and watch the returned action replace the form.</sub></td>
+</tr>
+</table>
 
-For live routing outside Railway, set:
+## Choose how to get started
 
-```bash
-GREENWARE_DESTINATIONS='{"default":{"webhook_url":"INSERT_WEBHOOK_URL_HERE","headers":{"x-clay-webhook-auth":"INSERT_AUTH_TOKEN_HERE"}}}'
-GREENWARE_ALLOWED_ORIGINS=https://yourcompany.com,https://www.yourcompany.com
-GREENWARE_ENV=production
-GREENWARE_PUBLIC_URL=https://greenware.yourcompany.com
-PORT=8080
+<table>
+<tr>
+<td align="center" valign="top" width="50%"><h3>Self-serve</h3><sub>For GTM engineers who manage inbound routing</sub><br /><h2>Free</h2><div align="left">&nbsp;&nbsp;&nbsp;✓&nbsp; Custom forms, Tally, and Typeform<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Multiple Clay destinations by form ID<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Redirect, embed, message, and reject actions<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Default UI or headless browser events<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Signed callbacks, read tokens, and origin checks<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Railway deployment with no database</div></td>
+<td align="center" valign="top" width="50%"><h3>Done-with-you</h3><sub>Hands-on setup and ongoing support for your GTM team</sub><br /><h2>Let's talk</h2><div align="left">&nbsp;&nbsp;&nbsp;✓&nbsp; Everything in self-serve<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Full setup and Railway deployment<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Clay webhook and callback configuration<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Greenware connected to your existing forms<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Team rollout, training, and best practices<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Ongoing maintenance and upgrades<br />&nbsp;&nbsp;&nbsp;✓&nbsp; Dedicated Slack channel support</div></td>
+</tr>
+<tr>
+<td align="center"><a href="https://github.com/eliasstravik/greenware/blob/main/docs/getting-started.md"><img src="assets/buttons/deploy-greenware.svg" alt="Deploy Greenware" /></a></td>
+<td align="center"><a href="https://cal.com/stravik/demo?projects=Greenware" target="_blank" rel="noopener noreferrer"><img src="assets/buttons/book-a-demo.svg" alt="Book a demo" /></a></td>
+</tr>
+</table>
 
-# Optional stable keys.
-GREENWARE_SIGNING_KEY=long-random-secret
-GREENWARE_READ_KEY=long-random-secret
+## Get your questions answered
 
-# Optional protected setup endpoint.
-GREENWARE_SETUP_TOKEN=long-random-secret
-```
+### Do I have to replace my current form?
 
-Your server URL is whatever domain or IP points to this process.
+No. Greenware can attach to a custom-coded form or coordinate an existing Tally or Typeform embed.
 
-</details>
+### Do I need to know how to code?
 
-### Step 2: Make the deployment ready
+No code is needed to deploy the Railway template. A custom website form needs a small HTML snippet, while Tally and Typeform need hidden fields and a webhook URL.
 
-A fresh deploy needs no variables to boot. To start routing real form submissions, open the Railway `greenware` service, go to **Variables**, and add the variables below. You can use **Raw Editor** to paste them in.
+### What can Clay show after someone submits?
 
-#### Required for Clay
+Four actions: redirect to an HTTPS page, embed a supported HTTPS calendar or iframe, show a message with an optional CTA, or show a polite rejection with an optional off-ramp.
 
-`GREENWARE_DESTINATIONS` tells Greenware which Clay webhook to call.
+### Does Greenware store my form leads?
 
-```text
-GREENWARE_DESTINATIONS={"default":{"webhook_url":"INSERT_WEBHOOK_URL_HERE","headers":{"x-clay-webhook-auth":"INSERT_AUTH_TOKEN_HERE"}}}
-```
+Greenware forwards the submission to Clay and keeps short-lived session state in memory. It does not use a durable database, and pending sessions disappear when the process restarts.
 
-Replace:
+### Can one deployment route more than one form?
 
-- `INSERT_WEBHOOK_URL_HERE` with your Clay webhook source URL
-- `INSERT_AUTH_TOKEN_HERE` with your Clay webhook auth token
+Yes. Map form IDs to named Clay webhook destinations and keep a default destination for unmatched IDs.
 
-#### Required for browser forms and embeds
+### Can I run several Greenware instances?
 
-`GREENWARE_ALLOWED_ORIGINS` tells Greenware which websites may call the browser APIs. Use exact origins only: scheme, hostname, and port if needed. Do not include paths.
+Not with the built-in store. Sessions and rate limits live in one process, so a multi-instance deployment would need shared storage.
 
-```text
-GREENWARE_ALLOWED_ORIGINS=https://yourcompany.com,https://www.yourcompany.com
-```
+### Are allowed origins the same as server authentication?
 
-This is needed for custom-coded forms, Webflow/Squarespace/WordPress pages, and Tally or Typeform embeds that use Greenware's JavaScript. It is not needed for the provider's server-to-server webhook POST.
+No. Origin checks protect browser integrations from accidental cross-site use, but non-browser clients can forge that header. Provider flows use per-session hidden credentials, and callbacks use signed expiring URLs.
 
-Origin checks protect browser integrations from accidental cross-site use. They are not server-to-server authentication, because non-browser clients can forge an `Origin` header. Keep provider webhook URLs unguessable through per-session hidden fields, and use Railway or service-level protections if you expose Greenware to high-volume public traffic.
+### What does it cost?
 
-After adding variables, redeploy the service and check:
+Greenware is free and MIT licensed. You pay for the infrastructure, Clay, form provider, and enrichment services your workflow uses.
 
-```bash
-curl https://your-greenware-url/health
-curl https://your-greenware-url/ready
-```
+## Route your first form through Clay in twenty minutes
 
-Expected `/health`:
+<p align="center">A working form can route through Clay after one deployment and one small embed. Greenware handles the browser round trip. You connect the form and choose what Clay returns.</p>
 
-```json
-{ "status": "ok" }
-```
+<p align="center"><a href="https://github.com/eliasstravik/greenware/blob/main/docs/getting-started.md"><img src="assets/buttons/deploy-greenware.svg" alt="Deploy Greenware" /></a>&nbsp;&nbsp;<a href="https://cal.com/stravik/demo?projects=Greenware" target="_blank" rel="noopener noreferrer"><img src="assets/buttons/book-a-demo.svg" alt="Book a demo" /></a></p>
 
-Expected `/ready`:
+<p align="center"><sub>✓&nbsp;100%&nbsp;free&nbsp;and&nbsp;open&nbsp;source &nbsp; ✓&nbsp;One&#8209;click&nbsp;Railway&nbsp;deploy &nbsp; ✓&nbsp;Keep&nbsp;your&nbsp;existing&nbsp;form</sub></p>
 
-```json
-{ "status": "ok", "destination": "default", "storage": "memory" }
-```
-
-If `/ready` returns `not_ready`, `GREENWARE_DESTINATIONS` is missing or invalid, or your only allowed origins are local development origins / the Railway service domain. Add the real website origin that hosts the form.
-
-#### Multiple Clay destinations
-
-Greenware can route different forms to different Clay webhook tables. In Railway, open the Greenware service variables and set `GREENWARE_DESTINATIONS` as JSON.
-
-```json
-{
-  "default": {
-    "webhook_url": "INSERT_DEFAULT_WEBHOOK_URL_HERE",
-    "headers": {
-      "x-clay-webhook-auth": "INSERT_DEFAULT_AUTH_TOKEN_HERE"
-    }
-  },
-  "enterprise-demo": {
-    "webhook_url": "INSERT_ENTERPRISE_WEBHOOK_URL_HERE",
-    "headers": {
-      "x-clay-webhook-auth": "INSERT_ENTERPRISE_AUTH_TOKEN_HERE"
-    }
-  },
-  "inbound-partners": {
-    "webhook_url": "INSERT_PARTNERS_WEBHOOK_URL_HERE",
-    "headers": {
-      "x-clay-webhook-auth": "INSERT_PARTNERS_AUTH_TOKEN_HERE"
-    },
-    "timeout_ms": 15000
-  }
-}
-```
-
-If a submission has `form_id: "enterprise-demo"`, Greenware sends it to the `enterprise-demo` destination. If no exact match exists, it uses `default`.
-
-### Step 3: Configure Clay callback
-
-Every Greenware request sent to Clay includes:
-
-```json
-{
-  "session_id": "6f2a7cba-5f63-4cf5-9f14-41c4f9c5b84c",
-  "callback_url": "https://your-greenware-url/api/callback/...",
-  "lead": {
-    "email": "alice@example.com"
-  },
-  "form_id": "enterprise-demo",
-  "source": {
-    "provider": "tally"
-  },
-  "meta": {
-    "submitted_at": "2026-05-20T10:00:00.000Z"
-  }
-}
-```
-
-Add an HTTP API column in Clay as the last routing step.
-
-**Method:** `POST`
-
-**URL:**
-
-```text
-{{callback_url}}
-```
-
-**Headers:**
-
-- **Key:** `Content-Type`
-- **Value:** `application/json`
-
-**Body:**
-
-```json
-{
-  "session_id": "{{session_id}}",
-  "status": "ok",
-  "action": {
-    "type": "embed",
-    "provider": "calendly",
-    "url": "https://calendly.com/your-team/demo",
-    "mobile_behavior": "redirect"
-  },
-  "meta": {
-    "source": "clay"
-  }
-}
-```
-
-### Step 4: Use it from your form
-
-#### Custom-coded forms
-
-Add the Greenware attributes and scripts to an existing form:
-
-```html
-<form
-  data-greenware-attach
-  data-greenware-endpoint="https://your-greenware-url"
-  data-greenware-form-id="enterprise-demo"
->
-  <input name="email" type="email" required>
-  <button type="submit">Book a demo</button>
-</form>
-
-<script src="https://your-greenware-url/embed/v1.js"></script>
-<script src="https://your-greenware-url/embed/v1-default-ui.js"></script>
-```
-
-Use only `/embed/v1.js` if you want your own UI and listen for `greenware:*` events.
-
-#### Tally, Typeform, and provider embeds
-
-Use Greenware to create a session before loading the provider form. Greenware then passes these hidden fields into the provider URL or provider hidden-field settings:
-
-```text
-greenware_session_id
-greenware_read_token
-greenware_form_id
-```
-
-Create hidden fields with exactly those names in Tally, Typeform, or the provider you use. Do not hard-code values into those fields. Greenware generates fresh values for each visitor session and appends them when it loads the embedded form.
-
-For Tally embeds, Greenware can inject those values directly:
-
-```html
-<div
-  data-greenware-provider="tally"
-  data-greenware-form-id="enterprise-demo"
-  data-greenware-iframe-src="https://tally.so/embed/YOUR_FORM_ID?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-></div>
-
-<script src="https://your-greenware-url/embed/v1.js"></script>
-<script src="https://your-greenware-url/embed/v1-default-ui.js"></script>
-```
-
-Configure the provider webhook:
-
-```text
-https://your-greenware-url/api/ingest/tally
-https://your-greenware-url/api/ingest/typeform
-https://your-greenware-url/api/ingest/generic
-```
-
-Do not add an authorization header or `?token=` query parameter to provider webhook URLs. Provider webhooks are authenticated by the per-session `greenware_read_token` hidden field. `GREENWARE_SETUP_TOKEN` is only needed if you want to enable protected setup endpoints such as `/setup/sessions`.
-
-## API reference
-
-All endpoints return JSON except `/wait/:sessionId`, which is a minimal owned fallback page for redirect-only form providers.
-
-### `GET /health`
-
-Railway health check. No auth.
-
-```bash
-curl https://your-greenware-url/health
-```
-
-```json
-{ "status": "ok" }
-```
-
-### `GET /ready`
-
-Configuration readiness check. No auth. Returns `503` until a real Clay destination and at least one non-local, non-Railway website origin are configured.
-
-```json
-{ "status": "ok", "destination": "default", "storage": "memory" }
-```
-
-### `GET /`
-
-Backend metadata. No auth.
-
-```json
-{
-  "name": "greenware",
-  "status": "ok",
-  "kind": "backend"
-}
-```
-
-### `POST /api/submit`
-
-Accepts a custom-coded browser form submission. Requires the browser `Origin` to match `GREENWARE_ALLOWED_ORIGINS` or the Railway public domain. The endpoint is rate-limited per IP; treat `GREENWARE_ALLOWED_ORIGINS` as browser CORS protection, not as secret authentication.
-
-```bash
-curl -X POST https://your-greenware-url/api/submit \
-  -H "Origin: https://your-site.com" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "lead": { "email": "alice@example.com" },
-    "form_id": "enterprise-demo"
-  }'
-```
-
-```json
-{
-  "session_id": "6f2a7cba-5f63-4cf5-9f14-41c4f9c5b84c",
-  "read_token": "...",
-  "expires_at": 1779283497
-}
-```
-
-### `POST /api/session/start`
-
-Creates a pending session for Tally, Typeform, or another provider form before the provider submits.
-
-```json
-{
-  "provider": "tally",
-  "form_id": "enterprise-demo"
-}
-```
-
-### `POST /api/ingest/:provider`
-
-Receives provider webhooks. Supported providers are `tally`, `typeform`, and `generic`.
-
-Provider submissions must include the Greenware hidden fields returned by `/api/session/start`:
-
-```text
-greenware_session_id
-greenware_read_token
-greenware_form_id
-```
-
-### `POST /api/callback/:sessionId`
-
-Clay posts the final routing action to the signed `callback_url` Greenware sent in the Clay webhook body. Do not construct this URL yourself.
-
-### `GET /api/session/:sessionId`
-
-Browser polling endpoint. Requires:
-
-```text
-Authorization: Bearer READ_TOKEN
-```
-
-### `GET /setup/sessions`
-
-Protected operational view for recent terminal sessions. Requires the setup token and returns redacted metadata only.
-
-```bash
-curl https://your-greenware-url/setup/sessions \
-  -H "Authorization: Bearer INSERT_SETUP_TOKEN_HERE"
-```
-
-## Action payloads
-
-Redirect:
-
-```json
-{ "type": "redirect", "url": "https://your-site.com/signup" }
-```
-
-Embed:
-
-```json
-{
-  "type": "embed",
-  "provider": "calendly",
-  "url": "https://calendly.com/your-team/demo",
-  "mobile_behavior": "redirect"
-}
-```
-
-Message:
-
-```json
-{
-  "type": "message",
-  "title": "Thanks",
-  "body": "We will follow up by email."
-}
-```
-
-Reject:
-
-```json
-{
-  "type": "reject",
-  "reason": "Not a fit right now"
-}
-```
-
-See [docs/protocol-v1.md](docs/protocol-v1.md) for the full schema.
-
-## Environment variables
-
-Greenware is zero-config at deploy time. If signing/read keys are absent, the runtime uses ephemeral process-local keys, which is acceptable because sessions are short-lived and in memory. Set stable keys only if you want explicit key management across restarts.
-
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `GREENWARE_SIGNING_KEY` | No | ephemeral runtime secret | HMAC key for callback URLs |
-| `GREENWARE_READ_KEY` | No | ephemeral runtime secret | HMAC key for browser read tokens |
-| `GREENWARE_SETUP_TOKEN` | No | disabled | Optional token for protected setup endpoints |
-| `GREENWARE_DESTINATIONS` | Yes for live routing | none | JSON map of Clay webhook destinations |
-| `GREENWARE_ALLOWED_ORIGINS` | Yes for browser integrations | local development origins only | Comma-separated browser origins allowed to call `/api/submit`, `/api/session/start`, and `/api/session/*` |
-| `GREENWARE_PUBLIC_URL` | No | `RAILWAY_PUBLIC_DOMAIN` | Canonical public URL used when Greenware builds signed callback URLs |
-| `GREENWARE_ENV` | No | `production` | Runtime environment |
-| `GREENWARE_SIGNING_KEY_PREVIOUS` | No | | Previous callback signing key during rotation |
-| `PORT` | No | `8787` locally, Railway-provided in deploy | HTTP port |
-
-## Development
-
-```bash
-bun install
-cp apps/server/.env.example apps/server/.env
-bun run dev
-```
-
-Useful commands:
-
-| Command | Description |
-|---------|-------------|
-| `bun run dev` | Start the Bun server locally |
-| `bun run build` | Type-check the server |
-| `bun run typecheck` | Type-check without deployment |
-| `bun run test` | Run the test suite |
-| `bun run deploy` | Deploy the current workspace with `railway up` |
-
-## Architecture
-
-Built with [Hono](https://hono.dev), TypeScript, and Bun.
-
-```
-apps/server/src/
-  index.ts                     Hono app factory and public routes
-  server.ts                    Bun/Railway entrypoint
-  routes/submit.ts             Custom form submit endpoint
-  routes/start.ts              Provider session bootstrap endpoint
-  routes/ingest.ts             Tally/Typeform/generic webhook ingest
-  routes/callback.ts           Signed Clay callback endpoint
-  routes/session.ts            Browser polling endpoint
-  lib/enrichment_destinations.ts  Railway-configured Clay routing
-  lib/protocol.ts              Callback action schema
-  lib/sessions.ts              Session store interface and memory store
-```
-
-Railway runs one backend service. Sessions are short-lived in-memory records, so there is no Postgres, SQLite, Redis, or other database service to configure.
-
-## Security measures
-
-- HMAC-signed callback URLs
-- HMAC-derived read tokens for browser polling
-- Exact-origin CORS checks for browser submit/session endpoints
-- Optional setup token for protected operational endpoints
-- HTTPS-only action URLs
-- Strict Protocol v1 callback schema
-- Optional key rotation through `GREENWARE_SIGNING_KEY_PREVIOUS`
-
-## License
-
-[MIT](LICENSE)
+<p align="center"><small>⭐ Used by top GTM Engineers</small></p>
